@@ -12,7 +12,7 @@ repository = "https://github.com/Lucretiel/semester"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-semester-macro = { path = "../semester-macro", default-features = false }
+semester-macro = { path = "../semester-macro", default-features = false, version = "1.0.0" }
 
 [dev-dependencies]
 cool_asserts = "2.0.3"
