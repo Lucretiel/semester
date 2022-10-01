@@ -1,0 +1,24 @@
+[package]
+name = "semester"
+version = "1.0.0"
+edition = "2021"
+authors = ["Nathan West <Lucretiel@gmail.com>"]
+
+readme = "README.md"
+license = "MPL-2.0"
+description = "High efficiency classnames macro"
+repository = "https://github.com/Lucretiel/semester"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+semester-macro = { path = "../semester-macro", default-features = false }
+
+[dev-dependencies]
+cool_asserts = "2.0.3"
+
+[features]
+default = ["std"]
+
+std = ["alloc", "semester-macro/std"]
+alloc = ["semester-macro/alloc"]

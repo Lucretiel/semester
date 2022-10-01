@@ -1,0 +1,37 @@
+[package]
+name = "semester-macro"
+version = "1.0.0"
+edition = "2021"
+authors = ["Nathan West <Lucretiel@gmail.com>"]
+
+readme = "README.md"
+license = "MPL-2.0"
+description = "High efficiency classnames macro"
+repository = "https://github.com/Lucretiel/semester"
+
+[lib]
+proc-macro = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cascade = "1.0.0"
+either = { version = "1.8.0", default-features = false }
+itertools = { version = "0.10.5", default-features = false, features = [
+    "use_alloc",
+] }
+joinery = { version = "3.1.0", default-features = false }
+proc-macro2 = { version = "1.0.44", default-features = false }
+quote = { version = "1.0.21", default-features = false }
+syn = { version = "1.0.101", default-features = false, features = [
+    "parsing",
+    "full",
+    "proc-macro",
+    "printing",
+] }
+
+[features]
+default = ["std"]
+
+std = ["alloc"]
+alloc = []
