@@ -4,7 +4,7 @@ version = "1.0.0"
 edition = "2021"
 authors = ["Nathan West <Lucretiel@gmail.com>"]
 
-readme = "README.md"
+readme = "../README.md"
 license = "MPL-2.0"
 description = "High efficiency classnames macro"
 repository = "https://github.com/Lucretiel/semester"
