@@ -57,7 +57,8 @@ your classes:
 
 - Classes must be made up of ascii printable characters:
 
-```compile_fail
+```rust
+// This does not compile
 use semester::classes;
 
 classes!("null\0class")
@@ -65,7 +66,8 @@ classes!("null\0class")
 
 - Classes must not have any whitespace:
 
-```compile_fail
+```rust
+// This does not compile
 use semester::classes;
 
 classes!("class pair")
@@ -73,7 +75,8 @@ classes!("class pair")
 
 - Classes must not be empty:
 
-```compile_fail
+```rust
+// This does not compile
 use semester::classes;
 
 classes!("")
@@ -81,7 +84,8 @@ classes!("")
 
 - Classes should exclude the HTML unsafe characters: `<` `>` `&` `'` `"`
 
-```compile_fail
+```rust
+// This does not compile
 use semester::classes;
 
 classes!("<injected-class>")
@@ -90,7 +94,8 @@ classes!("<injected-class>")
 - Classes may not duplicate. Note that `semester` can't detect mutually
   exclusive conditions, so it prevents duplicates unconditionally.
 
-```compile_fail
+```rust
+// This does not compile
 use semester::classes;
 
 let x = 10;
