@@ -71,7 +71,7 @@ fn test_all_conditional() {
     let b1 = true;
     let b2 = true;
 
-    let classes = semester::classes!("class1": b1, "class2": b2, "both": b1 && b2);
+    let classes = classes!("class1": b1, "class2": b2, "both": b1 && b2);
     assert_eq!(classes.render(), "class1 class2 both");
     assert_eq!(classes.len(), 3)
 }
