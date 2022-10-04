@@ -159,7 +159,14 @@ assert_eq!(get_classes(false, true).render(), "class2");
 assert_eq!(get_classes(true, true).render(), "class1 class2 both");
 ```
 */
-pub use semester_macro::classes;
+#[macro_export]
+macro_rules! classes {
+    ($($( $class:literal $(: $condition:expr)? ),+ $(,)?)?) => {
+        ::semester_macro::classes_impl!(
+            $($( $class $(: $condition)? ,)+)?
+        )
+    }
+}
 
 /**
 Create a set of classes statically.
@@ -209,7 +216,14 @@ assert_eq!(
 
 ```
 */
-pub use semester_macro::static_classes;
+#[macro_export]
+macro_rules! static_classes {
+    ($($( $class:literal $(: $condition:expr)? ),+ $(,)?)?) => {
+        ::semester_macro::static_classes_impl!(
+            $($( $class $(: $condition)? ,)+)?
+        )
+    }
+}
 
 /**
 A `Classes` is a dynamically computed set of CSS classes.

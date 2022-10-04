@@ -274,7 +274,7 @@ fn fixed_set<'a>(classes: impl Iterator<Item = &'a str> + Clone) -> TokenStream 
 }
 
 #[proc_macro]
-pub fn classes(input: TokenStream) -> TokenStream {
+pub fn classes_impl(input: TokenStream) -> TokenStream {
     let classes = parse_macro_input!(input as Classes);
 
     if classes.rows.iter().all(|row| row.condition.is_none()) {
@@ -550,7 +550,7 @@ struct WorkQueueItem<'a> {
 }
 
 #[proc_macro]
-pub fn static_classes(input: TokenStream) -> TokenStream {
+pub fn static_classes_impl(input: TokenStream) -> TokenStream {
     let classes = parse_macro_input!(input as Classes);
 
     if classes.rows.iter().all(|row| row.condition.is_none()) {
