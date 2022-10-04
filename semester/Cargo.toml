@@ -1,6 +1,6 @@
 [package]
 name = "semester"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["Nathan West <Lucretiel@gmail.com>"]
 
@@ -12,7 +12,7 @@ repository = "https://github.com/Lucretiel/semester"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-semester-macro = { path = "../semester-macro", default-features = false, version = "1.0.0" }
+semester-macro = { path = "../semester-macro", default-features = false, version = "2.0.0" }
 
 [dev-dependencies]
 cool_asserts = "2.0.3"
