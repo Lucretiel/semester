@@ -124,6 +124,9 @@ use core::{
 #[cfg(feature = "alloc")]
 use alloc::borrow::Cow;
 
+#[doc(hidden)]
+pub use semester_macro::{classes_impl, static_classes_impl};
+
 /**
 Create a set of classes dynamically.
 
@@ -162,7 +165,7 @@ assert_eq!(get_classes(true, true).render(), "class1 class2 both");
 #[macro_export]
 macro_rules! classes {
     ($($( $class:literal $(: $condition:expr)? ),+ $(,)?)?) => {
-        ::semester_macro::classes_impl!(
+        ::semester::classes_impl!(
             $($( $class $(: $condition)? ,)+)?
         )
     }
@@ -219,7 +222,7 @@ assert_eq!(
 #[macro_export]
 macro_rules! static_classes {
     ($($( $class:literal $(: $condition:expr)? ),+ $(,)?)?) => {
-        ::semester_macro::static_classes_impl!(
+        ::semester::static_classes_impl!(
             $($( $class $(: $condition)? ,)+)?
         )
     }
