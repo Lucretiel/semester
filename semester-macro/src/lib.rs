@@ -11,7 +11,6 @@ use std::{
     ops::Not,
 };
 
-use cascade::cascade;
 use either::Either;
 use itertools::Itertools as _;
 use joinery::JoinableIterator as _;
@@ -26,6 +25,16 @@ use syn::{
     Lit::Bool,
     LitBool, LitStr, Token, UnOp,
 };
+
+macro_rules! express {
+    ( $receiver:ident $(.$method:ident($($args:tt)*))* ) => {{
+        let mut value = $receiver;
+        $(
+            value.$method($($args)*);
+        )*
+        value
+    }};
+}
 
 struct ClassName {
     literal: LitStr,
@@ -311,8 +320,8 @@ pub fn classes_impl(input: TokenStream) -> TokenStream {
                     rendered: rendered2,
                 },
             ) => Ok(NamedClassSpec::Fixed {
-                ids: cascade!(ids1; ..extend(ids2);),
-                rendered: cascade!(rendered1; ..push_str(" "); ..push_str(&rendered2);),
+                ids: express!(ids1.extend(ids2)),
+                rendered: express!(rendered1.push_str(" ").push_str(&rendered2)),
             }),
             (spec1, spec2) => Err((spec1, spec2)),
         })
