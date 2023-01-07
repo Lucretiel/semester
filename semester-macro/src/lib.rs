@@ -418,19 +418,42 @@ pub fn classes_impl(input: TokenStream) -> TokenStream {
         quote! {
             #[must_use]
             fn render(&self) -> ::std::borrow::Cow<'static, str> {
-                let mut rendered = ::std::borrow::Cow::Borrowed("");
+                // Compute the final rendered length, for pre-allocation.
+                // Slightly inefficient in various ways but hopefully easily
+                // optimized.
+                let final_length = {
+                    let length: usize = 0;
 
-                // TODO: pre-allocate the string
+                    #(
+                        let length = match #rendered_class_emissions {
+                            Some(class) if length == 0 => class.len(),
+                            Some(class) => length + class.len() + 1,
+                            None => length,
+                        };
+                    )*
+
+                    length
+                };
+
+                let rendered = ::std::borrow::Cow::Borrowed("");
+
                 #(
-                    if let Some(class) = #rendered_class_emissions {
-                        if rendered.is_empty() {
-                            rendered = ::std::borrow::Cow::Borrowed(class);
-                        } else {
-                            let rendered = rendered.to_mut();
+                    let rendered = match (rendered, #rendered_class_emissions) {
+                        (rendered, None) => rendered,
+                        (::std::borrow::Cow::Borrowed(""), Some(class)) => ::std::borrow::Cow::Borrowed(class),
+                        (::std::borrow::Cow::Borrowed(rendered), Some(class)) => {
+                            let mut buffer = ::std::string::String::with_capacity(final_length);
+                            buffer.push_str(rendered);
+                            buffer.push_str(" ");
+                            buffer.push_str(class);
+                            ::std::borrow::Cow::Owned(buffer)
+                        }
+                        (::std::borrow::Cow::Owned(mut rendered), Some(class)) => {
                             rendered.push_str(" ");
                             rendered.push_str(class);
+                            ::std::borrow::Cow::Owned(rendered)
                         }
-                    }
+                    };
                 )*
 
                 rendered
